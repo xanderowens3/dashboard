@@ -1,5 +1,7 @@
 {
-  "buildCommand": "npm install && npm run build",
   "outputDirectory": "dist",
-  "framework": "vite"
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/api/smartlead/(.*)", "destination": "/api/smartlead/[...path]" }
+  ]
 }

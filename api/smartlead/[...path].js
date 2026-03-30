@@ -1,12 +1,10 @@
 // Vercel serverless proxy for SmartLead API.
-// Forwards requests from the frontend to SmartLead so the API key
-// never needs to be hardcoded and CORS is handled server-side.
+// Forwards /api/smartlead/* requests to SmartLead server-side,
+// keeping the API key off the client bundle and handling CORS.
 
-export default async function handler(req, res) {
-  // Build the SmartLead path from the catch-all segment
-  const path = req.query.path ? req.query.path.join('/') : '';
+module.exports = async function handler(req, res) {
+  const path = Array.isArray(req.query.path) ? req.query.path.join('/') : (req.query.path || '');
 
-  // Forward all query params (api_key, start_date, end_date, etc.)
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(req.query)) {
     if (key !== 'path') params.append(key, value);
@@ -15,11 +13,7 @@ export default async function handler(req, res) {
   const url = `https://server.smartlead.ai/api/v1/${path}?${params.toString()}`;
 
   try {
-    const upstream = await fetch(url, {
-      method: req.method,
-      headers: { 'Content-Type': 'application/json' },
-    });
-
+    const upstream = await fetch(url, { method: req.method });
     const contentType = upstream.headers.get('content-type') ?? '';
     const body = contentType.includes('application/json')
       ? await upstream.json()
@@ -29,4 +23,4 @@ export default async function handler(req, res) {
   } catch (err) {
     res.status(502).json({ error: 'Proxy error', detail: err.message });
   }
-}
+};
