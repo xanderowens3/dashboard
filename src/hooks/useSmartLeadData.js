@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { fetchCampaigns, fetchDashboardMetrics, warmSessionCache, clearSessionCache } from '../api/smartlead';
+import { isSmartLeadConnected } from '../api/keyStore.js';
 
 export default function useSmartLeadData(initKey = 0) {
   const [campaigns, setCampaigns] = useState([]);
@@ -22,6 +23,11 @@ export default function useSmartLeadData(initKey = 0) {
     initialLoadDone.current = false;
 
     async function init() {
+      if (!isSmartLeadConnected()) {
+        setCampaignsLoading(false);
+        return;
+      }
+
       try {
         setCampaignsLoading(true);
 

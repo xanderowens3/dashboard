@@ -34,6 +34,22 @@ export default function Dashboard({ slInitKey = 0 }) {
 
   const selectedPreset = typeof dateRange === 'object' ? dateRange.value : dateRange;
 
+  // ── No API key — prompt to connect ───────────────────────────────────────
+  if (!campaignsLoading && campaigns.length === 0 && !error) {
+    return (
+      <div className="dashboard-page">
+        <div className="dashboard-empty">
+          <svg viewBox="0 0 24 24">
+            <rect x="5" y="11" width="14" height="10" rx="2" />
+            <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+          </svg>
+          <h3>Connect Your Data</h3>
+          <p>Enter your API key using the SmartLead or GoHighLevel buttons in the bottom left to start seeing your campaign data.</p>
+        </div>
+      </div>
+    );
+  }
+
   // ── Full-screen loading ───────────────────────────────────────────────────
   if (campaignsLoading) {
     return <LoadingScreen />;
