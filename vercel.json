@@ -3,5 +3,15 @@
   "buildCommand": "npm run build",
   "functions": {
     "api/**/*.js": {}
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/smartlead-api/:path*",
+      "destination": "https://server.smartlead.ai/api/v1/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
