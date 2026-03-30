@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { fetchCampaigns, fetchDashboardMetrics, warmSessionCache } from '../api/smartlead';
+import { fetchCampaigns, fetchDashboardMetrics, warmSessionCache, clearSessionCache } from '../api/smartlead';
 
-export default function useSmartLeadData() {
+export default function useSmartLeadData(initKey = 0) {
   const [campaigns, setCampaigns] = useState([]);
   const [earliestDate, setEarliestDate] = useState(null);
   const [selectedCampaignIds, setSelectedCampaignIds] = useState([]);
@@ -13,17 +13,23 @@ export default function useSmartLeadData() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Reset state and clear cache when a new API key is entered
+    clearSessionCache();
+    setCampaigns([]);
+    setSelectedCampaignIds([]);
+    setMetrics(null);
+    setError(null);
+    initialLoadDone.current = false;
+
     async function init() {
       try {
         setCampaignsLoading(true);
-        setError(null);
 
         const data = await fetchCampaigns();
         const dates = data.map(c => c.startDate).filter(Boolean).sort();
         const earliest = dates[0] ?? '2020-01-01';
         const allIds = data.map(c => c.id);
 
-        // Fetch 7d and 30d together before showing dashboard — both instantly switchable on load
         const [initialMetrics] = await Promise.all([
           fetchDashboardMetrics(allIds, '7d', earliest),
           fetchDashboardMetrics(allIds, '30d', earliest),
@@ -35,15 +41,15 @@ export default function useSmartLeadData() {
         setMetrics(initialMetrics);
         setCampaignsLoading(false);
 
-        // Warm 90d and all time in the background
         warmSessionCache(allIds, earliest).catch(() => {});
       } catch (err) {
         setError(err.message);
         setCampaignsLoading(false);
       }
     }
+
     init();
-  }, []);
+  }, [initKey]);
 
   const fetchId = useRef(0);
   const initialLoadDone = useRef(false);

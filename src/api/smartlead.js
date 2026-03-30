@@ -1,5 +1,9 @@
-const API_KEY = import.meta.env.VITE_SMARTLEAD_API_KEY;
+import { getSmartLeadKey } from './keyStore.js';
+
 const BASE_URL = '/smartlead-api';
+
+// Always call this inline so it picks up keys entered at runtime
+function API_KEY() { return getSmartLeadKey(); }
 
 // ─── Session store ────────────────────────────────────────────────────────────
 // Module-level Map — lives for the browser session, gone when the tab closes.
@@ -39,7 +43,7 @@ function getPreviousPeriodDates(start, end) {
 // ─── Campaigns ────────────────────────────────────────────────────────────────
 
 export async function fetchCampaigns() {
-  const res = await fetch(`${BASE_URL}/campaigns?api_key=${API_KEY}`);
+  const res = await fetch(`${BASE_URL}/campaigns?api_key=${API_KEY()}`);
   if (!res.ok) throw new Error(`Failed to fetch campaigns (${res.status})`);
   const data = await res.json();
   const raw = Array.isArray(data) ? data : (data.data ?? data.campaigns ?? []);
@@ -81,7 +85,7 @@ async function fetchCampaignAnalytics(campaignId, startDate, endDate) {
   if (sessionStore.has(key)) return sessionStore.get(key);
 
   const url = `${BASE_URL}/campaigns/${campaignId}/top-level-analytics-by-date` +
-    `?api_key=${API_KEY}&start_date=${startDate}&end_date=${endDate}`;
+    `?api_key=${API_KEY()}&start_date=${startDate}&end_date=${endDate}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Analytics failed for campaign ${campaignId} (${res.status})`);
   const result = normalizeAnalytics(await res.json());
@@ -137,6 +141,12 @@ function buildMetrics(current, previous) {
       avgPositiveReplyRate: pct(avgPositiveReplyRate, prevPositiveReplyRate),
     },
   };
+}
+
+// ─── Cache management ─────────────────────────────────────────────────────────
+
+export function clearSessionCache() {
+  sessionStore.clear();
 }
 
 // ─── Public API ───────────────────────────────────────────────────────────────

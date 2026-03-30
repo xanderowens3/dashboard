@@ -6,7 +6,7 @@ import useSmartLeadData from '../hooks/useSmartLeadData.js';
 import { getTrendData } from '../data/mockData.js';
 import './Dashboard.css';
 
-export default function Dashboard() {
+export default function Dashboard({ slInitKey = 0 }) {
   const {
     campaigns,
     selectedCampaignIds,
@@ -17,7 +17,7 @@ export default function Dashboard() {
     metricsLoading,
     campaignsLoading,
     error,
-  } = useSmartLeadData();
+  } = useSmartLeadData(slInitKey);
 
   const trendData = getTrendData();
 
