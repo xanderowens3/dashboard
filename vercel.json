@@ -6,8 +6,8 @@
   },
   "rewrites": [
     {
-      "source": "/smartlead-api/:path*",
-      "destination": "https://server.smartlead.ai/api/v1/:path*"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     },
     {
       "source": "/(.*)",
