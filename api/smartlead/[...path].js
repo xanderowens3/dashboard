@@ -1,8 +1,4 @@
-// Vercel serverless proxy for SmartLead API.
-// Forwards /api/smartlead/* requests to SmartLead server-side,
-// keeping the API key off the client bundle and handling CORS.
-
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   const path = Array.isArray(req.query.path) ? req.query.path.join('/') : (req.query.path || '');
 
   const params = new URLSearchParams();
@@ -23,4 +19,4 @@ module.exports = async function handler(req, res) {
   } catch (err) {
     res.status(502).json({ error: 'Proxy error', detail: err.message });
   }
-};
+}
