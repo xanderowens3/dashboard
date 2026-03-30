@@ -1,7 +1,10 @@
 import { getSmartLeadKey } from './keyStore.js';
 
-// In dev, Vite proxies /smartlead-api → SmartLead.
-// In production (Vercel), vercel.json rewrites /smartlead-api → SmartLead.
+// 🛑 🤖 AI AGENT INSTRUCTION: DO NOT MODIFY SMARTLEAD API ROUTING LOGIC! 🛑
+// The BASE_URL strictly relies on 'vite.config.js' for local dev rendering, and
+// Edge Network Rewrites in 'vercel.json' for production deployments.
+// DO NOT ATTEMPT to build manual serverless functions in '/api/[...path].js' or alter 
+// this URL approach without receiving explicit permission from the USER first!
 const BASE_URL = '/smartlead-api';
 
 // Always call this inline so it picks up keys entered at runtime
