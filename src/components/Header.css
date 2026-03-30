@@ -1,0 +1,406 @@
+/* ============================================
+   Header & Filters
+   ============================================ */
+.dashboard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 40px 28px 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dashboard-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dashboard-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  letter-spacing: -0.01em;
+}
+
+.dashboard-subtitle {
+  font-size: 0.8rem;
+  color: var(--slate-500);
+  font-weight: 400;
+}
+
+.dashboard-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ============================================
+   Date Range Picker
+   ============================================ */
+.date-range-picker {
+  position: relative;
+}
+
+.date-range-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  font-size: 0.835rem;
+  font-weight: 500;
+  color: var(--slate-700);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.date-range-trigger:hover {
+  border-color: var(--blue-400);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.date-range-trigger svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--slate-400);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.date-range-trigger .chevron {
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+  transition: transform var(--transition-fast);
+}
+
+.date-range-trigger.open .chevron {
+  transform: rotate(180deg);
+}
+
+.date-range-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 8px;
+  z-index: 50;
+  min-width: 200px;
+  animation: slideDown 0.2s ease-out;
+}
+
+.date-range-option {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 0.835rem;
+  font-weight: 500;
+  color: var(--slate-600);
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.date-range-option:hover {
+  background: var(--blue-50);
+  color: var(--blue-600);
+}
+
+.date-range-option.active {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.06));
+  color: var(--blue-600);
+  font-weight: 600;
+}
+
+.date-range-custom {
+  padding: 12px 14px 8px;
+  border-top: 1px solid var(--slate-100);
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.date-range-custom label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--slate-400);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.date-range-custom-inputs {
+  display: flex;
+  gap: 8px;
+}
+
+.date-range-custom input[type="date"] {
+  flex: 1;
+  padding: 7px 10px;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--slate-700);
+  background: var(--white);
+  transition: border-color var(--transition-fast);
+}
+
+.date-range-custom input[type="date"]:focus {
+  border-color: var(--blue-400);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+/* ============================================
+   Campaign Selector
+   ============================================ */
+.campaign-selector {
+  position: relative;
+}
+
+.campaign-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  font-size: 0.835rem;
+  font-weight: 500;
+  color: var(--slate-700);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.campaign-trigger:hover {
+  border-color: var(--blue-400);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.campaign-trigger svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--slate-400);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.campaign-trigger .chevron {
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+  transition: transform var(--transition-fast);
+}
+
+.campaign-trigger.open .chevron {
+  transform: rotate(180deg);
+}
+
+.campaign-count-badge {
+  background: var(--blue-600);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  line-height: 1.3;
+}
+
+.campaign-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 8px;
+  z-index: 50;
+  min-width: 300px;
+  max-height: 360px;
+  display: flex;
+  flex-direction: column;
+  animation: slideDown 0.2s ease-out;
+}
+
+.campaign-search {
+  padding: 8px 12px;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-sm);
+  font-size: 0.835rem;
+  margin-bottom: 8px;
+  color: var(--slate-700);
+  transition: border-color var(--transition-fast);
+}
+
+.campaign-search:focus {
+  border-color: var(--blue-400);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.campaign-search::placeholder {
+  color: var(--slate-400);
+}
+
+.campaign-actions {
+  display: flex;
+  gap: 8px;
+  padding: 4px 0 8px;
+  border-bottom: 1px solid var(--slate-100);
+  margin-bottom: 4px;
+}
+
+.campaign-action-btn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--blue-600);
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.campaign-action-btn:hover {
+  background: var(--blue-50);
+}
+
+.campaign-list {
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.campaign-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.campaign-item:hover {
+  background: var(--slate-50);
+}
+
+.campaign-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--slate-300);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.campaign-item.selected .campaign-checkbox {
+  background: var(--blue-600);
+  border-color: var(--blue-600);
+}
+
+.campaign-checkbox svg {
+  width: 12px;
+  height: 12px;
+  stroke: var(--white);
+  fill: none;
+  stroke-width: 3;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.campaign-item.selected .campaign-checkbox svg {
+  opacity: 1;
+}
+
+.campaign-item-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.campaign-item-name {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--slate-700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.campaign-item-meta {
+  font-size: 0.7rem;
+  color: var(--slate-400);
+}
+
+.campaign-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.campaign-status-dot.active { background: var(--emerald-400); }
+.campaign-status-dot.paused { background: var(--amber-400); }
+.campaign-status-dot.completed { background: var(--slate-300); }
+
+.campaign-apply-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-top: 1px solid var(--slate-100);
+  gap: 12px;
+}
+
+.campaign-apply-count {
+  font-size: 0.75rem;
+  color: var(--slate-400);
+  white-space: nowrap;
+}
+
+.campaign-apply-btn {
+  padding: 6px 16px;
+  background: var(--blue-500);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  white-space: nowrap;
+}
+
+.campaign-apply-btn:hover:not(:disabled) {
+  background: var(--blue-600);
+}
+
+.campaign-apply-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
