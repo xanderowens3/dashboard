@@ -1,8 +1,8 @@
 import { getSmartLeadKey } from './keyStore.js';
 
 // In dev, Vite proxies /smartlead-api → SmartLead.
-// In production (Vercel), /api/smartlead is a serverless proxy function.
-const BASE_URL = import.meta.env.DEV ? '/smartlead-api' : '/api/smartlead';
+// In production (Vercel), vercel.json rewrites /smartlead-api → SmartLead.
+const BASE_URL = '/smartlead-api';
 
 // Always call this inline so it picks up keys entered at runtime
 function API_KEY() { return getSmartLeadKey(); }
