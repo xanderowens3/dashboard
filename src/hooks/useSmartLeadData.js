@@ -99,5 +99,6 @@ export default function useSmartLeadData(initKey = 0) {
     metricsLoading,
     campaignsLoading,
     error,
+    earliestDate
   };
 }

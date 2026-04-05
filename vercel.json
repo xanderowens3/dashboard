@@ -7,6 +7,10 @@
       "destination": "https://server.smartlead.ai/api/v1/:path*"
     },
     {
+      "source": "/ghl-api/:path*",
+      "destination": "https://services.leadconnectorhq.com/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

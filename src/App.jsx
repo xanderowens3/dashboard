@@ -4,8 +4,8 @@ import Dashboard from './pages/Dashboard.jsx';
 
 export default function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  // Incrementing this tells Dashboard to re-init with the new API key
   const [slInitKey, setSlInitKey] = useState(0);
+  const [ghlInitKey, setGhlInitKey] = useState(0);
 
   return (
     <div className="app-layout">
@@ -13,9 +13,10 @@ export default function App() {
         collapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
         onSmartLeadKeySet={() => setSlInitKey(k => k + 1)}
+        onGHLKeySet={() => setGhlInitKey(k => k + 1)}
       />
       <main className={`main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
-        <Dashboard slInitKey={slInitKey} />
+        <Dashboard slInitKey={slInitKey} ghlInitKey={ghlInitKey} />
       </main>
     </div>
   );

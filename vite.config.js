@@ -14,6 +14,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/smartlead-api/, '/api/v1'),
       },
+      '/ghl-api': {
+        target: 'https://services.leadconnectorhq.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/ghl-api/, ''),
+      },
     },
   },
 })

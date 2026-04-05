@@ -45,7 +45,7 @@ function ApiKeyPopover({ name, connected, onSave, onClose }) {
   );
 }
 
-export default function Sidebar({ collapsed, onToggle, onSmartLeadKeySet }) {
+export default function Sidebar({ collapsed, onToggle, onSmartLeadKeySet, onGHLKeySet }) {
   const [slConnected, setSlConnected] = useState(isSmartLeadConnected());
   const [ghlConnected, setGhlConnected] = useState(isGHLConnected());
   const [openPopover, setOpenPopover] = useState(null); // 'sl' | 'ghl' | null
@@ -53,13 +53,13 @@ export default function Sidebar({ collapsed, onToggle, onSmartLeadKeySet }) {
   function handleSaveSmartLead(key) {
     setSmartLeadKey(key);
     setSlConnected(true);
-    onSmartLeadKeySet();
+    if (onSmartLeadKeySet) onSmartLeadKeySet();
   }
 
   function handleSaveGHL(key) {
     setGHLKey(key);
     setGhlConnected(true);
-    // GHL integration hook goes here when built
+    if (onGHLKeySet) onGHLKeySet();
   }
 
   return (

@@ -13,6 +13,9 @@
   animation: fadeInUp 0.5s ease-out both;
   overflow: hidden;
   cursor: default;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .kpi-card::before {
@@ -77,31 +80,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-}
-
-.kpi-card-icon.blue {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(59, 130, 246, 0.08));
-  color: var(--blue-500);
-}
-
-.kpi-card-icon.emerald {
-  background: linear-gradient(135deg, rgba(52, 211, 153, 0.12), rgba(110, 231, 183, 0.08));
-  color: var(--emerald-400);
-}
-
-.kpi-card-icon.indigo {
-  background: linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(129, 140, 248, 0.08));
-  color: var(--indigo-600);
-}
-
-.kpi-card-icon.amber {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(251, 191, 36, 0.08));
-  color: var(--amber-500);
-}
-
-.kpi-card-icon.slate {
-  background: linear-gradient(135deg, rgba(71, 85, 105, 0.12), rgba(148, 163, 184, 0.08));
-  color: var(--slate-500);
+  background: var(--blue-500); /* Brand Blue 500 */
+  color: var(--white);         /* White icon */
 }
 
 .kpi-card-icon svg {
@@ -163,7 +143,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-top: 10px;
+  margin-top: auto;
   padding-top: 10px;
   border-top: 1px solid rgba(0, 0, 0, 0.04);
 }
