@@ -22,7 +22,7 @@ async function fetchAllContacts() {
   if (!API_KEY()) return [];
   
   let allContacts = [];
-  let url = `${BASE_URL}/contacts/?locationId=${LOCATION_ID}&limit=100`;
+  let url = `${BASE_URL}/contacts?locationId=${LOCATION_ID}&limit=100`;
 
   while (url) {
     const res = await fetch(url, {
@@ -45,7 +45,7 @@ async function fetchAllContacts() {
     
     if (data.meta && data.meta.nextPageUrl) {
       // Very Important: Replace domain with our proxy to avoid CORS
-      url = data.meta.nextPageUrl.replace('https://services.leadconnectorhq.com', BASE_URL);
+      url = data.meta.nextPageUrl.replace('https://services.leadconnectorhq.com/', `${BASE_URL}/`);
     } else {
       url = null;
     }
