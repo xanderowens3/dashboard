@@ -67,7 +67,10 @@ export default function Dashboard({ slInitKey = 0, ghlInitKey = 0 }) {
   }
 
   // ── Error state ───────────────────────────────────────────────────────────
-  if (!isDevUIOnly && error) {
+  // Prioritize SmartLead error, otherwise show GHL error if all campaigns selected fail
+  const dashboardError = error || (selectedCampaignIds.length > 0 && ghlError ? `HighLevel Integration: ${ghlError}` : null);
+
+  if (!isDevUIOnly && dashboardError) {
     return (
       <>
         <Header
@@ -85,7 +88,7 @@ export default function Dashboard({ slInitKey = 0, ghlInitKey = 0 }) {
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
             <h3>Failed to Load Data</h3>
-            <p>{error}</p>
+            <p>{dashboardError}</p>
           </div>
         </div>
       </>

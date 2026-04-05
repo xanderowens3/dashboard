@@ -28,11 +28,16 @@ async function fetchAllContacts() {
     const res = await fetch(url, {
       headers: {
         'Authorization': `Bearer ${API_KEY()}`,
-        'Version': '2021-07-28'
+        'Version': '2021-07-28',
+        'Accept': 'application/json'
       }
     });
 
-    if (!res.ok) throw new Error(`HighLevel API returned ${res.status}`);
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error('GHL API Error:', res.status, errorText);
+      throw new Error(`HighLevel API returned ${res.status}`);
+    }
     const data = await res.json();
     if (data.contacts) {
       allContacts.push(...data.contacts);
